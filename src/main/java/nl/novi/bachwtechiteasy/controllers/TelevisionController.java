@@ -1,5 +1,6 @@
 package nl.novi.bachwtechiteasy.controllers;
 
+import nl.novi.bachwtechiteasy.exceptions.RecordNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,12 @@ public class TelevisionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getTelevision(@PathVariable int id) {
+        if (id == 0) { // dummy, check of database id bevat
+            throw new RecordNotFoundException("television" + id + "does not exist");
+        }
+        else {
         return ResponseEntity.ok("television " + id);
+        }
     }
 
     @PostMapping
@@ -23,11 +29,20 @@ public class TelevisionController {
 
     @PutMapping("{id}")
     public ResponseEntity<String> putTelevision(@PathVariable int id) {
-        return ResponseEntity.noContent().build();
+        if (id == 0) { // dummy, check of database id bevat
+            throw new RecordNotFoundException("television " + id + " does not exist");
+        }
+        else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTelevision(@PathVariable int id) {
-        return ResponseEntity.ok("television removed!");
+        if (id == 0) { // dummy, check of database id bevat
+            throw new RecordNotFoundException("television " + id + " does not exist");
+        } else {
+            return ResponseEntity.ok("television removed!");
+        }
     }
 }
