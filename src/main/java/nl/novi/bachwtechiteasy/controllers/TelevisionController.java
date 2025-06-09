@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 public class TelevisionController {
 
     @GetMapping
-    public String getTelevisions() {
-        return "televisions";
+    public ResponseEntity<String> getTelevisions() {
+        return ResponseEntity.ok("televisions");
     }
 
     @GetMapping("/{id}")
