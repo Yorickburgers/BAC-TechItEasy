@@ -27,8 +27,7 @@ public class Television {
     public Integer originalStock;
     public Integer sold;
 
-    public Television(Long id, String type, String brand, Double price, Double availableSize, int refreshRate, String screenType, String screenQuality, boolean smartTV, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold) {
-        this.id = id;
+    public Television(String type, String brand, Double price, Double availableSize, int refreshRate, String screenType, String screenQuality, boolean smartTV, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold) {
         this.type = type;
         this.brand = brand;
         this.price = price;
