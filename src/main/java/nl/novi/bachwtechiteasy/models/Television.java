@@ -3,26 +3,29 @@ package nl.novi.bachwtechiteasy.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="televisions")
+@Table(name = "televisions")
 public class Television {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    public String type;
-    public String brand;
-    public Double price;
-    public Double availableSize;
-    public int refreshRate;
-    public String screenType;
-    public String screenQuality;
-    public boolean smartTV;
-    public boolean wifi;
-    public boolean voiceControl;
-    public boolean hdr;
-    public boolean bluetooth;
-    public boolean ambiLight;
-    public Integer originalStock;
-    public Integer sold;
+    private Long id;
+    private String type;
+    private String brand;
+    private Double price;
+    private Double availableSize;
+    private int refreshRate;
+    private String screenType;
+    private String screenQuality;
+    private boolean smartTV;
+    private boolean wifi;
+    private boolean voiceControl;
+    private boolean hdr;
+    private boolean bluetooth;
+    private boolean ambiLight;
+    private Integer originalStock;
+    private Integer sold;
+
+    public Television() { }
 
     public Television(String type, String brand, Double price, Double availableSize, int refreshRate, String screenType, String screenQuality, boolean smartTV, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold) {
         this.type = type;
@@ -42,14 +45,10 @@ public class Television {
         this.sold = sold;
     }
 
-    public Television() { }
+
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getType() {
