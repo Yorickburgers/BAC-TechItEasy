@@ -1,5 +1,6 @@
 package nl.novi.bachwtechiteasy.services;
 
+import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
 import nl.novi.bachwtechiteasy.models.Television;
 import nl.novi.bachwtechiteasy.repositories.TelevisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
