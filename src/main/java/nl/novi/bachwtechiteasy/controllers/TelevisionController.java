@@ -1,35 +1,52 @@
 package nl.novi.bachwtechiteasy.controllers;
 
 import nl.novi.bachwtechiteasy.exceptions.RecordNotFoundException;
+import nl.novi.bachwtechiteasy.models.Television;
+import nl.novi.bachwtechiteasy.repositories.TelevisionRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
+@RestController
 @RequestMapping("/televisions")
 public class TelevisionController {
 
+    private final TelevisionRepository televisionRepository;
+
+    public TelevisionController(TelevisionRepository televisionRepository) {
+        this.televisionRepository = televisionRepository;
+    }
+
     @GetMapping
-    public ResponseEntity<String> getTelevisions() {
-        return ResponseEntity.ok("televisions");
+    public ResponseEntity<List<Television>> getTelevisions() {
+        List<Television> televisions = televisionRepository.findAll();
+        return ResponseEntity.ok(televisions);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getTelevision(@PathVariable int id) {
-        if (id == 0) { // dummy, check of database id bevat
+    public ResponseEntity<Optional<Television>> getTelevision(@PathVariable int id) {
+        Optional<Television> television = televisionRepository.findById(id);
+
+        if (television.isPresent() == false) {
             throw new RecordNotFoundException("television" + id + "does not exist");
         }
         else {
-        return ResponseEntity.ok("television " + id);
+        return ResponseEntity.ok(television);
         }
     }
 
     @PostMapping
-    public ResponseEntity<String> postTelevision() {
-        return ResponseEntity.created(null).body("television");
+    public ResponseEntity<Television> postTelevision(@RequestBody Television television) {
+        return ResponseEntity.created(null).body(television);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<String> putTelevision(@PathVariable int id) {
-        if (id == 0) { // dummy, check of database id bevat
+        Optional<Television> television = televisionRepository.findById(id);
+
+        if (television.isPresent() == false) {
             throw new RecordNotFoundException("television " + id + " does not exist");
         }
         else {
