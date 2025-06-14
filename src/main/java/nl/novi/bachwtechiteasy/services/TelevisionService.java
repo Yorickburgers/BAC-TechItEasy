@@ -13,6 +13,7 @@ import java.util.Optional;
 @Service
 public class TelevisionService {
 
+    @Autowired
     private final TelevisionRepository repos;
 
     @Autowired
@@ -35,9 +36,8 @@ public class TelevisionService {
     }
 
     public ResponseEntity<Television> updateTelevision(int id, Television television) {
-     // find by ID
-        // set as veriable
-        // overwrite variable with parameter data
+     Television oldTelevision = this.repos.findById(id); // find by ID // set as veriable
+        oldTelevision = television;// overwrite variable with parameter data
         // save to ID?
         // return repsonseentity with new data (getbyID)
     }
