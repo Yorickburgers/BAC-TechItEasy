@@ -1,15 +1,13 @@
 package nl.novi.bachwtechiteasy.services;
 
-import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
+import nl.novi.bachwtechiteasy.exceptions.RecordNotFoundException;
 import nl.novi.bachwtechiteasy.models.Television;
 import nl.novi.bachwtechiteasy.repositories.TelevisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TelevisionService {
@@ -26,25 +24,39 @@ public class TelevisionService {
         return repos.findAll();
     }
 
-    public Optional<Television> getTelevision(int id) {
-        return repos.findById(id);
+    public Television getTelevision(int id) {
+        return repos.findById(id).orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found!"));
     }
 
-    public ResponseEntity<Television> saveTelevision(Television television) {
+    public Television saveTelevision(Television television) {
         // dto naar entity
         //
-        return ResponseEntity.ok().body(this.repos.save(television));
+        return this.repos.save(television);
     }
 
-    public ResponseEntity<Television> updateTelevision(int id, Television television) {
-     Television oldTelevision = this.repos.findById(id); // find by ID // set as veriable
-        oldTelevision = television;// overwrite variable with parameter data
-        // save to ID?
-        // return repsonseentity with new data (getbyID)
+    public Television updateTelevision(int id, Television television) {
+        Television currentTv = this.repos.findById(id).orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found!"));
+        currentTv.setType(television.getType());
+        currentTv.setBrand(television.getBrand());
+        currentTv.setPrice(television.getPrice());
+        currentTv.setAvailableSize(television.getAvailableSize());
+        currentTv.setRefreshRate(television.getRefreshRate());
+        currentTv.setScreenType(television.getScreenType());
+        currentTv.setScreenQuality(television.getScreenQuality());
+        currentTv.setSmartTV(television.isSmartTV());
+        currentTv.setWifi(television.isWifi());
+        currentTv.setVoiceControl(television.isVoiceControl());
+        currentTv.setHdr(television.isHdr());
+        currentTv.setBluetooth(television.isBluetooth());
+        currentTv.setAmbiLight(television.isAmbiLight());
+        currentTv.setOriginalStock(television.getOriginalStock());
+        currentTv.setSold(television.getSold());
+        return this.repos.save(currentTv);
     }
 
-    public ResponseEntity<String> deleteTelevision(int id) {
+    public String deleteTelevision(int id) {
+        Television tv = this.repos.findById(id).orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found!"));
         this.repos.deleteById(id);
-        return ResponseEntity.ok().body("Television deleted");
+        return "Television " + id + " deleted!";
     }
 }

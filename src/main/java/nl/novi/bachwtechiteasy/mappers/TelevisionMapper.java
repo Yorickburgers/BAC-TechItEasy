@@ -28,6 +28,7 @@ public class TelevisionMapper {
 
     public static Television toTelevision(TelevisionDto televisionDto) {
         Television tv = new Television();
+
         tv.setType(televisionDto.type);
         tv.setBrand(televisionDto.brand);
         tv.setPrice(televisionDto.price);
