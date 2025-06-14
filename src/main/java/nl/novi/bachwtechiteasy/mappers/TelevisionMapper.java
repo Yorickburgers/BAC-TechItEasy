@@ -25,4 +25,24 @@ public class TelevisionMapper {
 
         return dto;
     }
+
+    public static Television toTelevision(TelevisionDto televisionDto) {
+        Television tv = new Television();
+        tv.setType(televisionDto.type);
+        tv.setBrand(televisionDto.brand);
+        tv.setPrice(televisionDto.price);
+        tv.setAvailableSize(televisionDto.availableSize);
+        tv.setRefreshRate(televisionDto.refreshRate);
+        tv.setScreenType(televisionDto.screenType);
+        tv.setScreenQuality(televisionDto.screenQuality);
+        tv.setSmartTV(televisionDto.smartTV);
+        tv.setWifi(televisionDto.wifi);
+        tv.setVoiceControl(televisionDto.voiceControl);
+        tv.setHdr(televisionDto.hdr);
+        tv.setBluetooth(televisionDto.bluetooth);
+        tv.setAmbiLight(televisionDto.ambiLight);
+        tv.setOriginalStock(televisionDto.originalStock);
+        tv.setSold(televisionDto.sold);
+        return tv;
+    }
 }
