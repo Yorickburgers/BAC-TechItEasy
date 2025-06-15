@@ -28,32 +28,30 @@ public class TelevisionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Television>> getTelevisions() {
-        List<Television> televisions = televisionService.getTelevisions();
-        return ResponseEntity.ok(televisions);
+    public ResponseEntity<List<TelevisionDto>> getTelevisions() {
+        return ResponseEntity.ok(televisionService.getTelevisions());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Television> getTelevision(@PathVariable int id) {
-        Television television = televisionService.getTelevision(id);
-        return ResponseEntity.ok(television);
+    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable int id) {
+        return ResponseEntity.ok(televisionService.getTelevision(id));
     }
 
     @PostMapping
-    public ResponseEntity<Television> postTelevision(@RequestBody Television television) {
-    Television tv = televisionService.saveTelevision(television);
+    public ResponseEntity<TelevisionDto> postTelevision(@RequestBody TelevisionInputDto television) {
+    TelevisionDto tv = televisionService.saveTelevision(television);
 
         URI uri = URI.create(
                 ServletUriComponentsBuilder
                         .fromCurrentRequest()
-                        .path("/" + tv.getId()).toUriString());
+                        .path("/" + tv.id).toUriString());
 
-        return ResponseEntity.created(uri).body(televisionService.saveTelevision(tv));
+        return ResponseEntity.created(uri).body(tv);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Television> putTelevision(@PathVariable int id, @RequestBody Television television) {
-        return ResponseEntity.ok().body(televisionService.updateTelevision(id, television));
+    public ResponseEntity<TelevisionDto> putTelevision(@PathVariable int id, @RequestBody TelevisionInputDto televisionInputDto) {
+        return ResponseEntity.ok().body(televisionService.updateTelevision(id, televisionInputDto));
     }
 
     @DeleteMapping("/{id}")

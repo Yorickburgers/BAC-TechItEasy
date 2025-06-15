@@ -1,6 +1,7 @@
 package nl.novi.bachwtechiteasy.mappers;
 
 import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
+import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
 import nl.novi.bachwtechiteasy.models.Television;
 
 public class TelevisionMapper {
@@ -26,7 +27,7 @@ public class TelevisionMapper {
         return dto;
     }
 
-    public static Television toTelevision(TelevisionDto televisionDto) {
+    public static Television toTelevision(TelevisionInputDto televisionDto) {
         Television tv = new Television();
 
         tv.setType(televisionDto.type);
