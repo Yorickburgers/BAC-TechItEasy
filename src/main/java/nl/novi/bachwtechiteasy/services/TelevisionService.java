@@ -25,7 +25,7 @@ public class TelevisionService {
 
     public List<TelevisionDto> getTelevisions() {
         List<TelevisionDto> televisions = new ArrayList<>();
-        repos.findAll().forEach(television -> televisions.add(television.getId().intValue(), TelevisionMapper.toTelevisionDto(television)));
+        repos.findAll().forEach(television -> televisions.add(TelevisionMapper.toTelevisionDto(television)));
         return televisions;
     }
 
