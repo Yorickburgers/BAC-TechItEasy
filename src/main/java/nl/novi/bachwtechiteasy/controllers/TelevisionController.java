@@ -1,11 +1,17 @@
 package nl.novi.bachwtechiteasy.controllers;
 
+import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
+import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
 import nl.novi.bachwtechiteasy.exceptions.RecordNotFoundException;
 import nl.novi.bachwtechiteasy.models.Television;
 import nl.novi.bachwtechiteasy.repositories.TelevisionRepository;
+import nl.novi.bachwtechiteasy.services.TelevisionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,53 +19,43 @@ import java.util.Optional;
 @RequestMapping("/televisions")
 public class TelevisionController {
 
-    private final TelevisionRepository televisionRepository;
+    @Autowired
+    private final TelevisionService televisionService;
 
-    public TelevisionController(TelevisionRepository televisionRepository) {
-        this.televisionRepository = televisionRepository;
+    @Autowired
+    public TelevisionController(TelevisionService televisionService) {
+        this.televisionService = televisionService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Television>> getTelevisions() {
-        List<Television> televisions = televisionRepository.findAll();
-        return ResponseEntity.ok(televisions);
+    public ResponseEntity<List<TelevisionDto>> getTelevisions() {
+        return ResponseEntity.ok(televisionService.getTelevisions());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Television>> getTelevision(@PathVariable int id) {
-        Optional<Television> television = televisionRepository.findById(id);
-
-        if (television.isPresent() == false) {
-            throw new RecordNotFoundException("television" + id + "does not exist");
-        }
-        else {
-        return ResponseEntity.ok(television);
-        }
+    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable int id) {
+        return ResponseEntity.ok(televisionService.getTelevision(id));
     }
 
     @PostMapping
-    public ResponseEntity<Television> postTelevision(@RequestBody Television television) {
-        return ResponseEntity.created(null).body(television);
+    public ResponseEntity<TelevisionDto> postTelevision(@RequestBody TelevisionInputDto television) {
+    TelevisionDto tv = televisionService.saveTelevision(television);
+
+        URI uri = URI.create(
+                ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/" + tv.id).toUriString());
+
+        return ResponseEntity.created(uri).body(tv);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> putTelevision(@PathVariable int id) {
-        Optional<Television> television = televisionRepository.findById(id);
-
-        if (television.isPresent() == false) {
-            throw new RecordNotFoundException("television " + id + " does not exist");
-        }
-        else {
-            return ResponseEntity.noContent().build();
-        }
+    public ResponseEntity<TelevisionDto> putTelevision(@PathVariable int id, @RequestBody TelevisionInputDto televisionInputDto) {
+        return ResponseEntity.ok().body(televisionService.updateTelevision(id, televisionInputDto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTelevision(@PathVariable int id) {
-        if (id == 0) { // dummy, check of database id bevat
-            throw new RecordNotFoundException("television " + id + " does not exist");
-        } else {
-            return ResponseEntity.ok("television removed!");
-        }
+        return ResponseEntity.ok(televisionService.deleteTelevision(id));
     }
 }
