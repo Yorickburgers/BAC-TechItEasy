@@ -20,7 +20,7 @@ public class WallBracket {
         this.price = price;
     }
 
-    private WallBracket() {}
+    public WallBracket() {}
 
     public Long getId() {
         return id;
