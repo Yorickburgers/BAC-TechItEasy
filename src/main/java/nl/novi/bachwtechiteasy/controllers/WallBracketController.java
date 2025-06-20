@@ -1,9 +1,8 @@
 package nl.novi.bachwtechiteasy.controllers;
 
-import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
-import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
-import nl.novi.bachwtechiteasy.services.TelevisionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import nl.novi.bachwtechiteasy.dtos.WallBracketDto;
+import nl.novi.bachwtechiteasy.dtos.WallBracketInputDto;
+import nl.novi.bachwtechiteasy.services.WallBracketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,12 +10,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@RestController
+@RequestMapping("/wall-brackets")
 public class WallBracketController {
-    @Autowired
     private final WallBracketService wallBracketService;
 
-    @Autowired
-    public WallbracketController(WallBracketService wallBracketService) {
+    public WallBracketController(WallBracketService wallBracketService) {
         this.wallBracketService = wallBracketService;
     }
 
@@ -26,7 +25,7 @@ public class WallBracketController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<WallBracketDto> getWallbracket(@PathVariable int id) {
+    public ResponseEntity<WallBracketDto> getWallbracket(@PathVariable Long id) {
         return ResponseEntity.ok(wallBracketService.getWallBracket(id));
     }
 
@@ -43,12 +42,12 @@ public class WallBracketController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<WallBracketDto> putWallBracket(@PathVariable int id, @RequestBody WallBracketInputDto wallBracketInputDto) {
+    public ResponseEntity<WallBracketDto> putWallBracket(@PathVariable Long id, @RequestBody WallBracketInputDto wallBracketInputDto) {
         return ResponseEntity.ok().body(wallBracketService.updateWallBracket(id, wallBracketInputDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteWallbracket(@PathVariable int id) {
+    public ResponseEntity<String> deleteWallBracket(@PathVariable Long id) {
         return ResponseEntity.ok(wallBracketService.deleteWallBracket(id));
     }
 }

@@ -1,8 +1,8 @@
 package nl.novi.bachwtechiteasy.controllers;
 
-import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
-import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
-import nl.novi.bachwtechiteasy.services.TelevisionService;
+import nl.novi.bachwtechiteasy.dtos.RemoteControllerDto;
+import nl.novi.bachwtechiteasy.dtos.RemoteControllerInputDto;
+import nl.novi.bachwtechiteasy.services.RemoteControllerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class RemoteControllerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RemoteControllerDto> getRemoteController(@PathVariable int id) {
+    public ResponseEntity<RemoteControllerDto> getRemoteController(@PathVariable Long id) {
         return ResponseEntity.ok(remoteControllerService.getRemoteController(id));
     }
 
@@ -45,12 +45,12 @@ public class RemoteControllerController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<RemoteControllerDto> putRemoteController(@PathVariable int id, @RequestBody RemoteControllerInputDto remoteControllerDto) {
+    public ResponseEntity<RemoteControllerDto> putRemoteController(@PathVariable Long id, @RequestBody RemoteControllerInputDto remoteControllerDto) {
         return ResponseEntity.ok().body(remoteControllerService.updateRemoteController(id, remoteControllerDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteRemoteController(@PathVariable int id) {
+    public ResponseEntity<String> deleteRemoteController(@PathVariable Long id) {
         return ResponseEntity.ok(remoteControllerService.deleteRemoteController(id));
     }
 }
