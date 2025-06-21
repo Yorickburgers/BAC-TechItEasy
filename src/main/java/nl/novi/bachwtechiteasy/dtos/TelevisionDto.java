@@ -1,5 +1,9 @@
 package nl.novi.bachwtechiteasy.dtos;
 
+import nl.novi.bachwtechiteasy.models.WallBracket;
+
+import java.util.List;
+
 public class TelevisionDto {
     public Long id;
     public String type;
@@ -20,4 +24,5 @@ public class TelevisionDto {
 
     public RemoteControllerDto remoteController;
     public CIModuleDto ciModule;
+    public List<WallBracketDto> wallBrackets;
 }

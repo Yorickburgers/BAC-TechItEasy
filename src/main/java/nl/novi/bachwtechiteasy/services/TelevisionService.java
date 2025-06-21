@@ -9,9 +9,11 @@ import nl.novi.bachwtechiteasy.mappers.TelevisionMapper;
 import nl.novi.bachwtechiteasy.models.CIModule;
 import nl.novi.bachwtechiteasy.models.RemoteController;
 import nl.novi.bachwtechiteasy.models.Television;
+import nl.novi.bachwtechiteasy.models.WallBracket;
 import nl.novi.bachwtechiteasy.repositories.CIModuleRepository;
 import nl.novi.bachwtechiteasy.repositories.RemoteControllerRepository;
 import nl.novi.bachwtechiteasy.repositories.TelevisionRepository;
+import nl.novi.bachwtechiteasy.repositories.WallBracketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +27,13 @@ public class TelevisionService {
     private final TelevisionRepository repos;
     private final RemoteControllerRepository remoteRepos;
     private final CIModuleRepository ciRepos;
+    private final WallBracketRepository wbRepos;
 
-    public TelevisionService(TelevisionRepository repos, RemoteControllerRepository remoteRepos, CIModuleRepository ciRepos) {
+    public TelevisionService(TelevisionRepository repos, RemoteControllerRepository remoteRepos, CIModuleRepository ciRepos, WallBracketRepository wbRepos) {
         this.repos = repos;
         this.remoteRepos = remoteRepos;
         this.ciRepos = ciRepos;
+        this.wbRepos = wbRepos;
     }
 
     public List<TelevisionDto> getTelevisions() {
@@ -86,10 +90,18 @@ public class TelevisionService {
         return TelevisionMapper.toTelevisionDto(repos.save(tv));
     }
 
-    public TelevisionDto assignCIModuleToTelevision(Long ciModuleId, Long TVid) {
-        Television tv = repos.findById(TVid).orElseThrow(() -> new RecordNotFoundException("Television " + TVid + " not found!"));
+    public TelevisionDto assignCIModuleToTelevision(Long ciModuleId, Long TvId) {
+        Television tv = repos.findById(TvId).orElseThrow(() -> new RecordNotFoundException("Television " + TvId + " not found!"));
         CIModule ci = ciRepos.findById(ciModuleId).orElseThrow(() -> new RecordNotFoundException("Remote Controller " + ciModuleId + " not found!"));
         tv.setCiModule(ci);
+
+        return TelevisionMapper.toTelevisionDto(repos.save(tv));
+    }
+
+    public TelevisionDto assignWallBracketToTelevision(Long wbId, Long TvId) {
+        Television tv = repos.findById(TvId).orElseThrow(() -> new RecordNotFoundException("Television " + TvId + " not found!"));
+        WallBracket wb = wbRepos.findById(wbId).orElseThrow(() -> new RecordNotFoundException("Remote Controller " + wbId + " not found!"));
+        tv.getWallBrackets().add(wb);
 
         return TelevisionMapper.toTelevisionDto(repos.save(tv));
     }

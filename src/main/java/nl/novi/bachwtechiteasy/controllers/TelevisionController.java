@@ -4,6 +4,7 @@ import nl.novi.bachwtechiteasy.dtos.IdInputDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
 import nl.novi.bachwtechiteasy.services.TelevisionService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,5 +62,10 @@ public class TelevisionController {
     @PutMapping("/{id}/cimodule")
     public ResponseEntity<TelevisionDto> assignCIModuleToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
         return ResponseEntity.ok().body(televisionService.assignCIModuleToTelevision(input.id, id));
+    }
+
+    @PutMapping("/{id}/wallbracket")
+    public ResponseEntity<TelevisionDto> assignWallBracketToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+        return ResponseEntity.ok().body(televisionService.assignWallBracketToTelevision(input.id, id));
     }
 }

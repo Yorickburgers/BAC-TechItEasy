@@ -6,4 +6,8 @@ values (false, 52, true, 'LG', true, 12, 123, 50, 'HD', 'LED', false, 0, 'maxi',
 insert into remote_controllers (battery_type,brand,compatible_with,name,original_stock,price)
 values ('AA', 'Samsung', 'Samsung', 'Samsung Power Remote', 18, 12),
        ('AAA', 'Panasonic', 'Panasonic', 'Panasonic Classic Remote', 24, 8),
-       ('AA', 'LG', 'LG', 'LG All-Purpose Remote', 24, 16)
+       ('AA', 'LG', 'LG', 'LG All-Purpose Remote', 24, 16);
+
+insert into ci_modules (name, price, type)
+values ('Yamaha Module', 49, 'Prime'),
+       ('Sega Hyper Module', 59, 'Epic Edition');

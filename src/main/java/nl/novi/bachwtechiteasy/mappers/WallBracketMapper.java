@@ -6,6 +6,8 @@ import nl.novi.bachwtechiteasy.models.WallBracket;
 
 public class WallBracketMapper {
     public static WallBracketDto toWallBracketDto(WallBracket wb) {
+        if (wb == null) return null;
+
         WallBracketDto dto = new WallBracketDto();
         dto.id = wb.getId();
         dto.name = wb.getName();
