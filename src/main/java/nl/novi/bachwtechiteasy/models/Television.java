@@ -25,6 +25,9 @@ public class Television {
     private Integer originalStock;
     private Integer sold;
 
+    @OneToOne
+    RemoteController remoteController;
+
     public Television() { }
 
     public Television(String type, String brand, Double price, Double availableSize, int refreshRate, String screenType, String screenQuality, boolean smartTV, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold) {
@@ -169,5 +172,13 @@ public class Television {
 
     public void setSold(Integer sold) {
         this.sold = sold;
+    }
+
+    public RemoteController getRemoteController() {
+        return remoteController;
+    }
+
+    public void setRemoteController(RemoteController remoteController) {
+        this.remoteController = remoteController;
     }
 }
