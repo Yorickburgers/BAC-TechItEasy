@@ -1,13 +1,19 @@
 package nl.novi.bachwtechiteasy.services;
 
+import nl.novi.bachwtechiteasy.dtos.RemoteControllerDto;
+import nl.novi.bachwtechiteasy.dtos.RemoteControllerInputDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
 import nl.novi.bachwtechiteasy.exceptions.RecordNotFoundException;
 import nl.novi.bachwtechiteasy.mappers.TelevisionMapper;
+import nl.novi.bachwtechiteasy.models.RemoteController;
 import nl.novi.bachwtechiteasy.models.Television;
+import nl.novi.bachwtechiteasy.repositories.RemoteControllerRepository;
 import nl.novi.bachwtechiteasy.repositories.TelevisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +21,11 @@ import java.util.List;
 @Service
 public class TelevisionService {
     private final TelevisionRepository repos;
+    private final RemoteControllerRepository remoteRepos;
 
-    public TelevisionService(TelevisionRepository repos) {
+    public TelevisionService(TelevisionRepository repos, RemoteControllerRepository remoteRepos) {
         this.repos = repos;
+        this.remoteRepos = remoteRepos;
     }
 
     public List<TelevisionDto> getTelevisions() {
@@ -60,5 +68,13 @@ public class TelevisionService {
         repos.findById(id).orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found!"));
         repos.deleteById(id);
         return "Television " + id + " deleted!";
+    }
+
+    public TelevisionDto assignRemoteControllerToTelevision(Long remoteId, Long TVid) {
+        Television tv = repos.findById(TVid).orElseThrow(() -> new RecordNotFoundException("Television " + TVid + " not found!"));
+        RemoteController remote = remoteRepos.findById(remoteId).orElseThrow(() -> new RecordNotFoundException("Remote Controller " + remoteId + " not found!"));
+        tv.setRemoteController(remote);
+        return TelevisionMapper.toTelevisionDto(repos.save(tv));
+
     }
 }
