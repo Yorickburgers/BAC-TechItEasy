@@ -6,6 +6,8 @@ import nl.novi.bachwtechiteasy.models.RemoteController;
 
 public class RemoteControllerMapper {
     public static RemoteControllerDto toRemoteControllerDto(RemoteController remote) {
+        if (remote == null) return null;
+
         RemoteControllerDto dto = new RemoteControllerDto();
         dto.id = remote.getId();
         dto.name = remote.getName();
