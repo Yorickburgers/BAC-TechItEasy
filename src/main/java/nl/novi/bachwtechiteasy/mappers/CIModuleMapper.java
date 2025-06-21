@@ -6,6 +6,8 @@ import nl.novi.bachwtechiteasy.models.CIModule;
 
 public class CIModuleMapper {
     public static CIModuleDto toCIModuleDto(CIModule ci) {
+        if (ci == null) return null;
+
         CIModuleDto dto = new CIModuleDto();
 
         dto.id = ci.getId();

@@ -19,4 +19,5 @@ public class TelevisionDto {
     public Integer sold;
 
     public RemoteControllerDto remoteController;
+    public CIModuleDto ciModule;
 }

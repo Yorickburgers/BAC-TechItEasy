@@ -24,6 +24,7 @@ public class TelevisionMapper {
         dto.originalStock = television.getOriginalStock();
         dto.sold = television.getSold();
         dto.remoteController = RemoteControllerMapper.toRemoteControllerDto(television.getRemoteController());
+        dto.ciModule = CIModuleMapper.toCIModuleDto(television.getCiModule());
 
         return dto;
     }

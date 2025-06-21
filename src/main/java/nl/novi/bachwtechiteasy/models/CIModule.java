@@ -2,6 +2,8 @@ package nl.novi.bachwtechiteasy.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "ci_modules")
 public class CIModule {
@@ -11,6 +13,9 @@ public class CIModule {
     private String name;
     private String type;
     private Double price;
+
+    @OneToMany(mappedBy = "ciModule")
+    private List<Television> televisions;
 
     public CIModule(String name, String type, Double price) {
         this.name = name;

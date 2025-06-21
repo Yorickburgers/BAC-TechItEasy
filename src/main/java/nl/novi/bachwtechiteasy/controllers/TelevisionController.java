@@ -57,4 +57,9 @@ public class TelevisionController {
     public ResponseEntity<TelevisionDto> assignRemoteToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
         return ResponseEntity.ok().body(televisionService.assignRemoteControllerToTelevision(input.id, id));
     }
+
+    @PutMapping("/{id}/cimodule")
+    public ResponseEntity<TelevisionDto> assignCIModuleToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+        return ResponseEntity.ok().body(televisionService.assignCIModuleToTelevision(input.id, id));
+    }
 }

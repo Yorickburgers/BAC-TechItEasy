@@ -28,6 +28,10 @@ public class Television {
     @OneToOne
     RemoteController remoteController;
 
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ci_module_id")
+    private CIModule ciModule;
+
     public Television() { }
 
     public Television(String type, String brand, Double price, Double availableSize, int refreshRate, String screenType, String screenQuality, boolean smartTV, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold) {
@@ -180,5 +184,13 @@ public class Television {
 
     public void setRemoteController(RemoteController remoteController) {
         this.remoteController = remoteController;
+    }
+
+    public CIModule getCiModule() {
+        return ciModule;
+    }
+
+    public void setCiModule(CIModule ciModule) {
+        this.ciModule = ciModule;
     }
 }

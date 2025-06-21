@@ -6,8 +6,10 @@ import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
 import nl.novi.bachwtechiteasy.exceptions.RecordNotFoundException;
 import nl.novi.bachwtechiteasy.mappers.TelevisionMapper;
+import nl.novi.bachwtechiteasy.models.CIModule;
 import nl.novi.bachwtechiteasy.models.RemoteController;
 import nl.novi.bachwtechiteasy.models.Television;
+import nl.novi.bachwtechiteasy.repositories.CIModuleRepository;
 import nl.novi.bachwtechiteasy.repositories.RemoteControllerRepository;
 import nl.novi.bachwtechiteasy.repositories.TelevisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,12 @@ import java.util.List;
 public class TelevisionService {
     private final TelevisionRepository repos;
     private final RemoteControllerRepository remoteRepos;
+    private final CIModuleRepository ciRepos;
 
-    public TelevisionService(TelevisionRepository repos, RemoteControllerRepository remoteRepos) {
+    public TelevisionService(TelevisionRepository repos, RemoteControllerRepository remoteRepos, CIModuleRepository ciRepos) {
         this.repos = repos;
         this.remoteRepos = remoteRepos;
+        this.ciRepos = ciRepos;
     }
 
     public List<TelevisionDto> getTelevisions() {
@@ -78,6 +82,14 @@ public class TelevisionService {
         Television tv = repos.findById(TVid).orElseThrow(() -> new RecordNotFoundException("Television " + TVid + " not found!"));
         RemoteController remote = remoteRepos.findById(remoteId).orElseThrow(() -> new RecordNotFoundException("Remote Controller " + remoteId + " not found!"));
         tv.setRemoteController(remote);
+
+        return TelevisionMapper.toTelevisionDto(repos.save(tv));
+    }
+
+    public TelevisionDto assignCIModuleToTelevision(Long ciModuleId, Long TVid) {
+        Television tv = repos.findById(TVid).orElseThrow(() -> new RecordNotFoundException("Television " + TVid + " not found!"));
+        CIModule ci = ciRepos.findById(ciModuleId).orElseThrow(() -> new RecordNotFoundException("Remote Controller " + ciModuleId + " not found!"));
+        tv.setCiModule(ci);
 
         return TelevisionMapper.toTelevisionDto(repos.save(tv));
     }
