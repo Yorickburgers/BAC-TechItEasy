@@ -23,6 +23,7 @@ public class TelevisionMapper {
         dto.ambiLight = television.isAmbiLight();
         dto.originalStock = television.getOriginalStock();
         dto.sold = television.getSold();
+        dto.remoteController = RemoteControllerMapper.toRemoteControllerDto(television.getRemoteController());
 
         return dto;
     }

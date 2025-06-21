@@ -31,6 +31,7 @@ public class TelevisionService {
     public List<TelevisionDto> getTelevisions() {
         List<TelevisionDto> televisions = new ArrayList<>();
         repos.findAll().forEach(television -> televisions.add(TelevisionMapper.toTelevisionDto(television)));
+
         return televisions;
     }
 
@@ -41,6 +42,7 @@ public class TelevisionService {
     public TelevisionDto saveTelevision(TelevisionInputDto televisionDto) {
         Television television = TelevisionMapper.toTelevision(televisionDto);
         TelevisionMapper.toTelevisionDto(repos.save(television));
+
         return TelevisionMapper.toTelevisionDto(television);
     }
 
@@ -61,12 +63,14 @@ public class TelevisionService {
         currentTv.setAmbiLight(televisionInputDto.ambiLight);
         currentTv.setOriginalStock(televisionInputDto.originalStock);
         currentTv.setSold(televisionInputDto.sold);
+
         return TelevisionMapper.toTelevisionDto(repos.save(currentTv));
     }
 
     public String deleteTelevision(Long id) {
         repos.findById(id).orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found!"));
         repos.deleteById(id);
+
         return "Television " + id + " deleted!";
     }
 
@@ -74,7 +78,7 @@ public class TelevisionService {
         Television tv = repos.findById(TVid).orElseThrow(() -> new RecordNotFoundException("Television " + TVid + " not found!"));
         RemoteController remote = remoteRepos.findById(remoteId).orElseThrow(() -> new RecordNotFoundException("Remote Controller " + remoteId + " not found!"));
         tv.setRemoteController(remote);
-        return TelevisionMapper.toTelevisionDto(repos.save(tv));
 
+        return TelevisionMapper.toTelevisionDto(repos.save(tv));
     }
 }

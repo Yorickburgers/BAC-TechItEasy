@@ -1,5 +1,6 @@
 package nl.novi.bachwtechiteasy.controllers;
 
+import nl.novi.bachwtechiteasy.dtos.IdInputDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
 import nl.novi.bachwtechiteasy.services.TelevisionService;
@@ -42,7 +43,7 @@ public class TelevisionController {
         return ResponseEntity.created(uri).body(tv);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<TelevisionDto> putTelevision(@PathVariable Long id, @RequestBody TelevisionInputDto televisionInputDto) {
         return ResponseEntity.ok().body(televisionService.updateTelevision(id, televisionInputDto));
     }
@@ -50,5 +51,10 @@ public class TelevisionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTelevision(@PathVariable Long id) {
         return ResponseEntity.ok(televisionService.deleteTelevision(id));
+    }
+
+    @PutMapping("/{id}/remotecontroller")
+    public ResponseEntity<TelevisionDto> assignRemoteToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+        return ResponseEntity.ok().body(televisionService.assignRemoteControllerToTelevision(input.id, id));
     }
 }
