@@ -2,6 +2,9 @@ package nl.novi.bachwtechiteasy.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "televisions")
 public class Television {
@@ -24,6 +27,17 @@ public class Television {
     private boolean ambiLight;
     private Integer originalStock;
     private Integer sold;
+
+    @OneToOne
+    RemoteController remoteController;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ci_module_id")
+    private CIModule ciModule;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name = "televisions_wall_brackets", joinColumns = @JoinColumn(name = "television"), inverseJoinColumns = @JoinColumn(name = "wallbracket"))
+    private List<WallBracket> wallBrackets = new ArrayList<WallBracket>();
 
     public Television() { }
 
@@ -169,5 +183,29 @@ public class Television {
 
     public void setSold(Integer sold) {
         this.sold = sold;
+    }
+
+    public RemoteController getRemoteController() {
+        return remoteController;
+    }
+
+    public void setRemoteController(RemoteController remoteController) {
+        this.remoteController = remoteController;
+    }
+
+    public CIModule getCiModule() {
+        return ciModule;
+    }
+
+    public void setCiModule(CIModule ciModule) {
+        this.ciModule = ciModule;
+    }
+
+    public List<WallBracket> getWallBrackets() {
+        return wallBrackets;
+    }
+
+    public void setWallBrackets(List<WallBracket> wallBrackets) {
+        this.wallBrackets = wallBrackets;
     }
 }

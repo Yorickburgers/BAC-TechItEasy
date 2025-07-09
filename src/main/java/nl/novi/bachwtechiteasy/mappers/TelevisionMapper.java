@@ -4,6 +4,8 @@ import nl.novi.bachwtechiteasy.dtos.TelevisionDto;
 import nl.novi.bachwtechiteasy.dtos.TelevisionInputDto;
 import nl.novi.bachwtechiteasy.models.Television;
 
+import java.util.stream.Collectors;
+
 public class TelevisionMapper {
     public static TelevisionDto toTelevisionDto(Television television) {
         TelevisionDto dto = new TelevisionDto();
@@ -23,6 +25,11 @@ public class TelevisionMapper {
         dto.ambiLight = television.isAmbiLight();
         dto.originalStock = television.getOriginalStock();
         dto.sold = television.getSold();
+        dto.remoteController = RemoteControllerMapper.toRemoteControllerDto(television.getRemoteController());
+        dto.ciModule = CIModuleMapper.toCIModuleDto(television.getCiModule());
+        dto.wallBrackets = television.getWallBrackets().stream()
+                .map(WallBracketMapper::toWallBracketDto)
+                .collect(Collectors.toList());
 
         return dto;
     }
