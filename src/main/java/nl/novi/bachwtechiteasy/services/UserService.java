@@ -44,7 +44,7 @@ public class UserService {
     public String createUser(UserDto dto) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
         dto.apikey = randomString;
-        User newUser = userRepository.save(UserMapper.toUser(dto));
+        User newUser = userRepository.save(UserMapper.toUser(dto, passwordEncoder));
         return newUser.getUsername();
     }
 

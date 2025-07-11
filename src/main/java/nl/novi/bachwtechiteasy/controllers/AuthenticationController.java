@@ -17,7 +17,6 @@ import java.security.Principal;
 @CrossOrigin
 @RestController
 public class AuthenticationController {
-    /* TODO inject authenticationManager, userDetailService en jwtUtil*/
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;

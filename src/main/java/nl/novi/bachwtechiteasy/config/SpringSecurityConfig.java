@@ -53,7 +53,6 @@ public class SpringSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-                        /*TODO voed de antmatchers toe voor admin(post en delete) en user (overige)*/
                                 .requestMatchers(HttpMethod.POST,"/ci-modules").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/ci-modules").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE,"/ci-modules").hasRole("ADMIN")
