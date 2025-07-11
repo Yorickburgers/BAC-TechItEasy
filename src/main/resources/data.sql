@@ -11,3 +11,11 @@ values ('AA', 'Samsung', 'Samsung', 'Samsung Power Remote', 18, 12),
 insert into ci_modules (name, price, type)
 values ('Yamaha Module', 49, 'Prime'),
        ('Sega Hyper Module', 59, 'Epic Edition');
+
+insert into users (username, password, email, apikey, enabled)
+values ('Henk', 'Henk123', 'Henk@Henk.nl', null, true),
+       ('Ingrid', 'Ingrid123', 'Ingrid@Henk.nl', null, true);
+
+insert into authorities (username, authority)
+values ('Henk', 'ADMIN'),
+       ('Ingrid', 'USER');
