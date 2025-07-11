@@ -2,6 +2,7 @@ package nl.novi.bachwtechiteasy.services;
 
 import nl.novi.bachwtechiteasy.dtos.UserDto;
 import nl.novi.bachwtechiteasy.exceptions.RecordNotFoundException;
+import nl.novi.bachwtechiteasy.mappers.UserMapper;
 import nl.novi.bachwtechiteasy.models.Authority;
 import nl.novi.bachwtechiteasy.models.User;
 import nl.novi.bachwtechiteasy.repositories.UserRepository;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
