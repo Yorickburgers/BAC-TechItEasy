@@ -7,6 +7,7 @@ import nl.novi.bachwtechiteasy.models.Authority;
 import nl.novi.bachwtechiteasy.models.User;
 import nl.novi.bachwtechiteasy.repositories.UserRepository;
 import nl.novi.bachwtechiteasy.utils.RandomStringGenerator;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,8 +17,10 @@ import java.util.Set;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserDto> getUsers() {
@@ -52,7 +55,7 @@ public class UserService {
     public void updateUser(String username, UserDto newUser) {
         User user = userRepository.findById(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
-        user.setPassword(newUser.password);
+        user.setPassword(passwordEncoder.encode(newUser.password));
         userRepository.save(user);
     }
 
