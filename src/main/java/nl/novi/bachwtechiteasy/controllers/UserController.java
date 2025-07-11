@@ -3,7 +3,10 @@ package nl.novi.bachwtechiteasy.controllers;
 import nl.novi.bachwtechiteasy.dtos.UserDto;
 import nl.novi.bachwtechiteasy.exceptions.BadRequestException;
 import nl.novi.bachwtechiteasy.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,9 +30,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
-    public ResponseEntity<UserDto> getUser(@PathVariable String username) {
-        UserDto user = userService.getUser(username);
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<UserDto> getUser(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String username) {
+        if (userDetails.getUsername().equals(username)) {
+            UserDto user = userService.getUser(username);
+            return ResponseEntity.ok().body(user);
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PostMapping
