@@ -1,4 +1,4 @@
-package nl.novi.bachwtechiteasy.payloads;
+package nl.novi.bachwtechiteasy.payload;
 
 public class AuthenticationRequest {
     private String username;

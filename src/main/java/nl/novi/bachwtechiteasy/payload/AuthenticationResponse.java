@@ -1,4 +1,4 @@
-package nl.novi.bachwtechiteasy.payloads;
+package nl.novi.bachwtechiteasy.payload;
 
 public class AuthenticationResponse {
     private final String jwt;

@@ -1,7 +1,7 @@
 package nl.novi.bachwtechiteasy.controllers;
 
-import nl.novi.bachwtechiteasy.payloads.AuthenticationRequest;
-import nl.novi.bachwtechiteasy.payloads.AuthenticationResponse;
+import nl.novi.bachwtechiteasy.payload.AuthenticationRequest;
+import nl.novi.bachwtechiteasy.payload.AuthenticationResponse;
 import nl.novi.bachwtechiteasy.utils.JwtUtil;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
