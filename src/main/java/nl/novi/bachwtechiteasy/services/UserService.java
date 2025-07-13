@@ -55,7 +55,7 @@ public class UserService {
     public void updateUser(String username, UserDto newUser) {
         User user = userRepository.findById(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
-        user.setPassword(passwordEncoder.encode(newUser.password));
+        UserMapper.toUser(newUser, passwordEncoder);
         userRepository.save(user);
     }
 
