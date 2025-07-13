@@ -26,7 +26,7 @@ public class UserMapper {
         var user = new User();
 
         user.setUsername(userDto.username);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(userDto.password));
         user.setEnabled(userDto.enabled);
         user.setApikey(userDto.apikey);
         user.setEmail(userDto.email);
